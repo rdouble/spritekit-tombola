@@ -58,15 +58,8 @@ static const uint32_t ballCategory = 0x1 << 1;
         }
         CGPathCloseSubpath(hexPath);
         
-        _speedLabelNode = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
 
-        [_speedLabelNode  setText:@"SPEED"];
-        [_speedLabelNode setFontSize:42];
-
-        [_speedLabelNode setFontColor:[NSColor greenColor]];
-        _speedLabelNode.position = CGPointMake(900, 700);
-        _speedLabelNode.alpha = 0.55;
-        [self addChild:_speedLabelNode];
+        
 
         _hexNode = [SKShapeNode node];
 
@@ -90,12 +83,38 @@ static const uint32_t ballCategory = 0x1 << 1;
         _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
 
         _hexNode.speed = 1;
+        [self addLabels];
 
         
     }
     return self;
 }
 
+- (void)addLabels {
+    _speedLabelNode = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
+    _speedLabelNumericNode = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
+
+
+    [_speedLabelNode  setText:@"SPEED:"];
+    [_speedLabelNode setFontSize:42];
+    [_speedLabelNode setFontColor:[NSColor greenColor]];
+    [_speedLabelNumericNode setFontColor:[NSColor greenColor]];
+
+    _speedLabelNode.position = CGPointMake(875, 700);
+    _speedLabelNode.alpha = 0.55;
+    _speedLabelNumericNode.alpha = 0.55;
+
+
+    NSString *speedLabelNumericText = [NSString stringWithFormat:@"%.2f", _hexNode.speed];
+    NSLog(@"speed: %@", speedLabelNumericText);
+    _speedLabelNumericNode.fontSize = 42;
+    _speedLabelNumericNode.position = CGPointMake(970, 700);
+    _speedLabelNumericNode.text = speedLabelNumericText;
+    
+    [self addChild:_speedLabelNode];
+    [self addChild:_speedLabelNumericNode];
+
+}
 - (void)keyDown:(NSEvent *)theEvent {
 
     //    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
@@ -113,8 +132,8 @@ static const uint32_t ballCategory = 0x1 << 1;
             break;
     }
 
-    NSString *speedLabelText = [NSString stringWithFormat:@"SPEED: %.2f", _hexNode.speed];
-    [_speedLabelNode setText:speedLabelText];
+    NSString *speedLabelNumericText = [NSString stringWithFormat:@"%.2f", _hexNode.speed];
+    [_speedLabelNumericNode setText:speedLabelNumericText];
    
 }
 
