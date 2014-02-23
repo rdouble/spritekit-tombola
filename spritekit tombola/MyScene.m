@@ -15,12 +15,13 @@ static const uint32_t ballCategory = 0x1 << 1;
 
 @property (nonatomic, strong) SKShapeNode *hexNode;
 @property (nonatomic, strong) SKLabelNode *speedLabelNode;
+@property (nonatomic, strong) SKAction *playMarimba;
 
 @end
 
 @implementation MyScene
 
--(id)initWithSize:(CGSize)size {    
+- (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
@@ -77,19 +78,24 @@ static const uint32_t ballCategory = 0x1 << 1;
         
         [self addChild:_hexNode];
         CGPathRelease(hexPath);
+
         SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
-        
         [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
+        _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
+
         _hexNode.speed = 1;
+
         
     }
     return self;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-//    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
+
+    //    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
 //                                 (self.frame.origin.y + (self.frame.size.height / 2)));
 //    [self addBallToScene:center];
+
     switch (theEvent.keyCode) {
         case 1: // depressed 's'
             _hexNode.speed = _hexNode.speed + 0.25;
@@ -106,50 +112,54 @@ static const uint32_t ballCategory = 0x1 << 1;
    
 }
 
--(void)mouseDown:(NSEvent *)theEvent {
+- (void)mouseDown:(NSEvent *)theEvent {
      /* Called when a mouse click occurs */
     CGPoint location = [theEvent locationInNode:self];
     [self addBallToScene:location];
-
-
-
-    
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact {
-    SKAction *playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
-    [self runAction:playMarimba];
-    if ((contact.bodyA.categoryBitMask == ballCategory) || (contact.bodyB.categoryBitMask == hexCategory)) {
-}
+
+    [self runAction:_playMarimba];
+//    if ((contact.bodyA.categoryBitMask == ballCategory) || (contact.bodyB.categoryBitMask == hexCategory)) {
+//    }
 
     
 }
+
 - (void)addBallToScene:(CGPoint)location {
+
+    [self addChild:[self createBallNodeWithPosition:location]];
+    
+}
+
+- (SKShapeNode *)createBallNodeWithPosition:(CGPoint)position {
     
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddArc(circlePath, NULL, 0.0f, 0.0f, 10.0f, 0.0f, 2*M_PI, YES);
     SKShapeNode *circleNode = [[SKShapeNode alloc] init];
     circleNode.path = circlePath;
-    circleNode.position = location;
-    circleNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:[circleNode calculateAccumulatedFrame].size.width/2];
+    circleNode.position = position;
+    circleNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:10.0f];
     circleNode.physicsBody.dynamic = YES;
     circleNode.physicsBody.restitution = 1.0f;
+    circleNode.physicsBody.linearDamping = 0.0f;
     circleNode.physicsBody.categoryBitMask    = ballCategory;
     circleNode.physicsBody.collisionBitMask   = ballCategory | hexCategory;
     circleNode.physicsBody.contactTestBitMask = ballCategory | hexCategory;
+    circleNode.physicsBody.usesPreciseCollisionDetection = YES;
     circleNode.strokeColor = [SKColor whiteColor];
     circleNode.glowWidth = 1;
     CGPathRelease(circlePath);
-    
-    [self addChild:circleNode];
-    
+    return circleNode;
 }
--(void)mouseUp:(NSEvent *)theEvent {
+
+- (void)mouseUp:(NSEvent *)theEvent {
     /* Called when a mouse click occurs */
     
 }
 
--(void)update:(CFTimeInterval)currentTime {
+- (void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
 }
 
