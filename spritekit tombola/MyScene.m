@@ -35,19 +35,13 @@ static const uint32_t ballCategory = 0x1 << 1;
 
         int numberOfSides = 6;
         float radius = 200.0f;
-        
-        //float height = self.frame.size.height;
-        //float width  = self.frame.size.width;
-        
-        float height = 0.0f;
-        float width  = 0.0f;
 
         CGFloat startingAngle = 2 * M_PI / numberOfSides / 2.0f;
         for (int n = 0; n < numberOfSides; n++) {
             CGFloat rotationFactor = ((2 * M_PI) / numberOfSides) * (n+1) + startingAngle;
-            CGFloat x = ( width / 2.0f) + sin(rotationFactor) * radius;
-            CGFloat y = ( height / 2.0f) + cos(rotationFactor) * radius;
-            NSLog(@"x = %f, y = %f", x, y);
+            CGFloat x = sin(rotationFactor) * radius;
+            CGFloat y = cos(rotationFactor) * radius;
+
             if (n == 0) {
                 CGPathMoveToPoint(hexPath, NULL, x, y);
             } else {
@@ -55,6 +49,15 @@ static const uint32_t ballCategory = 0x1 << 1;
             }
         }
         CGPathCloseSubpath(hexPath);
+        
+        SKLabelNode *gravityLabel = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
+        [gravityLabel setText:@"GRAVITY"];
+        [gravityLabel setFontSize:42];
+
+        [gravityLabel setFontColor:[NSColor greenColor]];
+        gravityLabel.position = CGPointMake(900, 700);
+        gravityLabel.alpha = 0.55;
+        [self addChild:gravityLabel];
 
         _hexNode = [SKShapeNode node];
 
@@ -66,11 +69,13 @@ static const uint32_t ballCategory = 0x1 << 1;
         _hexNode.position = center;
         _hexNode.name = @"hex";
         _hexNode.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:hexPath];
+
         _hexNode.physicsBody.categoryBitMask = hexCategory;
 
         
         [self addChild:_hexNode];
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
+        CGPathRelease(hexPath);
+        SKAction *action = [SKAction rotateByAngle:M_PI duration:20];
         
         [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
         
@@ -78,13 +83,36 @@ static const uint32_t ballCategory = 0x1 << 1;
     return self;
 }
 
+- (void)keyDown:(NSEvent *)theEvent {
+    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
+                                 (self.frame.origin.y + (self.frame.size.height / 2)));
+    [self addBallToScene:center];
+   
+}
+
 -(void)mouseDown:(NSEvent *)theEvent {
      /* Called when a mouse click occurs */
     CGPoint location = [theEvent locationInNode:self];
+    [self addBallToScene:location];
+
+
+
+    
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+    SKAction *playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
+    [self runAction:playMarimba];
+    if ((contact.bodyA.categoryBitMask == ballCategory) || (contact.bodyB.categoryBitMask == hexCategory)) {
+}
+
+    
+}
+- (void)addBallToScene:(CGPoint)location {
+    
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddArc(circlePath, NULL, 0.0f, 0.0f, 10.0f, 0.0f, 2*M_PI, YES);
     SKShapeNode *circleNode = [[SKShapeNode alloc] init];
-    
     circleNode.path = circlePath;
     circleNode.position = location;
     circleNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:[circleNode calculateAccumulatedFrame].size.width/2];
@@ -95,14 +123,11 @@ static const uint32_t ballCategory = 0x1 << 1;
     circleNode.physicsBody.contactTestBitMask = ballCategory | hexCategory;
     circleNode.strokeColor = [SKColor whiteColor];
     circleNode.glowWidth = 1;
+    CGPathRelease(circlePath);
     
     [self addChild:circleNode];
-
-
-
     
 }
-
 -(void)mouseUp:(NSEvent *)theEvent {
     /* Called when a mouse click occurs */
     
