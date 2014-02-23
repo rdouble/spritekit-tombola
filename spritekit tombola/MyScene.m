@@ -14,6 +14,7 @@ static const uint32_t ballCategory = 0x1 << 1;
 @interface MyScene() <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) SKShapeNode *hexNode;
+@property (nonatomic, strong) SKLabelNode *speedLabelNode;
 
 @end
 
@@ -50,14 +51,15 @@ static const uint32_t ballCategory = 0x1 << 1;
         }
         CGPathCloseSubpath(hexPath);
         
-        SKLabelNode *gravityLabel = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
-        [gravityLabel setText:@"GRAVITY"];
-        [gravityLabel setFontSize:42];
+        _speedLabelNode = [[SKLabelNode alloc] initWithFontNamed:@"Bebas"];
 
-        [gravityLabel setFontColor:[NSColor greenColor]];
-        gravityLabel.position = CGPointMake(900, 700);
-        gravityLabel.alpha = 0.55;
-        [self addChild:gravityLabel];
+        [_speedLabelNode  setText:@"SPEED"];
+        [_speedLabelNode setFontSize:42];
+
+        [_speedLabelNode setFontColor:[NSColor greenColor]];
+        _speedLabelNode.position = CGPointMake(900, 700);
+        _speedLabelNode.alpha = 0.55;
+        [self addChild:_speedLabelNode];
 
         _hexNode = [SKShapeNode node];
 
@@ -75,18 +77,32 @@ static const uint32_t ballCategory = 0x1 << 1;
         
         [self addChild:_hexNode];
         CGPathRelease(hexPath);
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:20];
+        SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
         
         [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
+        _hexNode.speed = 1;
         
     }
     return self;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
-                                 (self.frame.origin.y + (self.frame.size.height / 2)));
-    [self addBallToScene:center];
+//    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
+//                                 (self.frame.origin.y + (self.frame.size.height / 2)));
+//    [self addBallToScene:center];
+    switch (theEvent.keyCode) {
+        case 1: // depressed 's'
+            _hexNode.speed = _hexNode.speed + 0.25;
+            break;
+        case 0:  // depressed 'a'
+            _hexNode.speed = _hexNode.speed - 0.25;
+            break;
+        default:
+            break;
+    }
+
+    NSString *speedLabelText = [NSString stringWithFormat:@"SPEED: %.2f", _hexNode.speed];
+    [_speedLabelNode setText:speedLabelText];
    
 }
 
