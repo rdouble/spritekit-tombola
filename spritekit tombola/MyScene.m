@@ -15,6 +15,12 @@ static const uint32_t ballCategory = 0x1 << 1;
 
 @property (nonatomic, strong) SKShapeNode *hexNode;
 @property (nonatomic, strong) SKLabelNode *speedLabelNode;
+@property (nonatomic, strong) SKLabelNode *speedLabelNumericNode;
+@property (nonatomic, strong) SKLabelNode *heavinessLabelNode;
+@property (nonatomic, strong) SKLabelNode *heavinessLabelNumericNode;
+@property (nonatomic, strong) SKLabelNode *bouncinessLabelNode;
+@property (nonatomic, strong) SKLabelNode *bouncinessLabelNumericNode;
+
 @property (nonatomic, strong) SKAction *playMarimba;
 
 @end
