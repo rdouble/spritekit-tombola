@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>21B806B5-0B7C-4211-8938-DFBA632963F8</string>
+	<string>75207F1B-1CE5-4D14-9695-8E0F4281036B</string>
 	<key>IDESourceControlProjectName</key>
 	<string>spritekit tombola</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>ADD85156-34C6-4822-A4E3-D60C173E70A4</key>
-		<string>ssh://github.com/rdouble/spritekit-tombola.git</string>
+		<key>41FEC87A-9062-4577-8E8C-DE6BBC70E7E2</key>
+		<string>ssh://Rolfs-Mac-mini.local/git/spritekit%20tombola.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>spritekit tombola.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>ADD85156-34C6-4822-A4E3-D60C173E70A4</key>
+		<key>41FEC87A-9062-4577-8E8C-DE6BBC70E7E2</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/rdouble/spritekit-tombola.git</string>
+	<string>ssh://Rolfs-Mac-mini.local/git/spritekit%20tombola.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>ADD85156-34C6-4822-A4E3-D60C173E70A4</string>
+	<string>41FEC87A-9062-4577-8E8C-DE6BBC70E7E2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>ADD85156-34C6-4822-A4E3-D60C173E70A4</string>
+			<string>41FEC87A-9062-4577-8E8C-DE6BBC70E7E2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>spritekit tombola</string>
 		</dict>
