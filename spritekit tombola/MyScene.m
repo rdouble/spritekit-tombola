@@ -58,6 +58,8 @@ static const uint32_t ballCategory = 0x1 << 1;
         }
         CGPathCloseSubpath(hexPath);
         
+       
+        
 
         
 
@@ -82,7 +84,7 @@ static const uint32_t ballCategory = 0x1 << 1;
         [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
         _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
 
-        _hexNode.speed = 1;
+        _hexNode.speed = 0;
         [self addLabels];
 
         
@@ -128,6 +130,9 @@ static const uint32_t ballCategory = 0x1 << 1;
         case 0:  // depressed 'a'
             _hexNode.speed = _hexNode.speed - 0.25;
             break;
+        case 2: // depressed 'd'
+            _hexNode.physicsBody.categoryBitMask = 0;
+            _hexNode.strokeColor = [SKColor blackColor];
         default:
             break;
     }
@@ -135,6 +140,19 @@ static const uint32_t ballCategory = 0x1 << 1;
     NSString *speedLabelNumericText = [NSString stringWithFormat:@"%.2f", _hexNode.speed];
     [_speedLabelNumericNode setText:speedLabelNumericText];
    
+}
+
+- (void)keyUp:(NSEvent *)theEvent {
+    switch (theEvent.keyCode) {
+        case 2:
+            _hexNode.physicsBody.categoryBitMask = hexCategory;
+            _hexNode.strokeColor = [SKColor greenColor];
+            break;
+        default:
+            break;
+
+            
+    }
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
