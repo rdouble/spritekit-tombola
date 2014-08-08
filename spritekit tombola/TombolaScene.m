@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 GITDOWN LLC. All rights reserved.
 //
 
-#import "MyScene.h"
+#import "TombolaScene.h"
 
 static const uint32_t hexCategory  = 0x1 << 0;
 static const uint32_t ballCategory = 0x1 << 1;
 
-@interface MyScene() <SKPhysicsContactDelegate>
+@interface TombolaScene() <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) SKShapeNode *hexNode;
 @property (nonatomic, strong) SKLabelNode *speedLabelNode;
@@ -25,7 +25,7 @@ static const uint32_t ballCategory = 0x1 << 1;
 
 @end
 
-@implementation MyScene
+@implementation TombolaScene
 
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -83,6 +83,7 @@ static const uint32_t ballCategory = 0x1 << 1;
         SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
         [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
         _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
+
 
         _hexNode.speed = 0;
         [self addLabels];
