@@ -7,20 +7,20 @@
 //
 
 #import "TombolaScene.h"
+#import "HexNode.h"
 
 static const uint32_t hexCategory  = 0x1 << 0;
 static const uint32_t ballCategory = 0x1 << 1;
 
 @interface TombolaScene() <SKPhysicsContactDelegate>
 
-@property (nonatomic, strong) SKShapeNode *hexNode;
+@property (nonatomic, strong) HexNode *hexNode;
 @property (nonatomic, strong) SKLabelNode *speedLabelNode;
 @property (nonatomic, strong) SKLabelNode *speedLabelNumericNode;
 @property (nonatomic, strong) SKLabelNode *heavinessLabelNode;
 @property (nonatomic, strong) SKLabelNode *heavinessLabelNumericNode;
 @property (nonatomic, strong) SKLabelNode *bouncinessLabelNode;
 @property (nonatomic, strong) SKLabelNode *bouncinessLabelNumericNode;
-
 @property (nonatomic, strong) SKAction *playMarimba;
 
 @end
@@ -39,53 +39,56 @@ static const uint32_t ballCategory = 0x1 << 1;
                                      (self.frame.origin.y + (self.frame.size.height / 2)));
 
         
-        CGMutablePathRef hexPath = CGPathCreateMutable();
-
-        int numberOfSides = 6;
-        float radius = 200.0f;
-
-        CGFloat startingAngle = 2 * M_PI / numberOfSides / 2.0f;
-        for (int n = 0; n < numberOfSides; n++) {
-            CGFloat rotationFactor = ((2 * M_PI) / numberOfSides) * (n+1) + startingAngle;
-            CGFloat x = sin(rotationFactor) * radius;
-            CGFloat y = cos(rotationFactor) * radius;
-
-            if (n == 0) {
-                CGPathMoveToPoint(hexPath, NULL, x, y);
-            } else {
-                CGPathAddLineToPoint(hexPath, NULL, x, y);
-            }
-        }
-        CGPathCloseSubpath(hexPath);
+//        CGMutablePathRef hexPath = CGPathCreateMutable();
+//
+//        int numberOfSides = 6;
+//        float radius = 200.0f;
+//
+//        CGFloat startingAngle = 2 * M_PI / numberOfSides / 2.0f;
+//        for (int n = 0; n < numberOfSides; n++) {
+//            CGFloat rotationFactor = ((2 * M_PI) / numberOfSides) * (n+1) + startingAngle;
+//            CGFloat x = sin(rotationFactor) * radius;
+//            CGFloat y = cos(rotationFactor) * radius;
+//
+//            if (n == 0) {
+//                CGPathMoveToPoint(hexPath, NULL, x, y);
+//            } else {
+//                CGPathAddLineToPoint(hexPath, NULL, x, y);
+//            }
+//        }
+//        CGPathCloseSubpath(hexPath);
         
        
         
 
         
 
-        _hexNode = [SKShapeNode node];
-
-        _hexNode.strokeColor = [SKColor greenColor];
-        _hexNode.glowWidth = 0.25;
-
-
-        _hexNode.path = hexPath;
+//        _hexNode = [SKShapeNode node];
+//
+//        _hexNode.strokeColor = [SKColor greenColor];
+//        _hexNode.glowWidth = 0.25;
+//
+//
+//        _hexNode.path = hexPath;
+//        _hexNode.position = center;
+//        _hexNode.name = @"hex";
+//        _hexNode.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:hexPath];
+//
+//        _hexNode.physicsBody.categoryBitMask = hexCategory;
+//
+//        
+//        [self addChild:_hexNode];
+//        CGPathRelease(hexPath);
+//
+//        SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
+//        [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
+//        _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
+//
+//
+//        _hexNode.speed = 0;
+        _hexNode = [[HexNode alloc] init];
         _hexNode.position = center;
-        _hexNode.name = @"hex";
-        _hexNode.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:hexPath];
-
-        _hexNode.physicsBody.categoryBitMask = hexCategory;
-
-        
         [self addChild:_hexNode];
-        CGPathRelease(hexPath);
-
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
-        [_hexNode runAction:[SKAction repeatActionForever:action] withKey:@"spinner"];
-        _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
-
-
-        _hexNode.speed = 0;
         [self addLabels];
 
         
@@ -119,10 +122,6 @@ static const uint32_t ballCategory = 0x1 << 1;
 
 }
 - (void)keyDown:(NSEvent *)theEvent {
-
-    //    CGPoint center = CGPointMake((self.frame.origin.x + (self.frame.size.width / 2)),
-//                                 (self.frame.origin.y + (self.frame.size.height / 2)));
-//    [self addBallToScene:center];
 
     switch (theEvent.keyCode) {
         case 1: // depressed 's'
@@ -165,10 +164,7 @@ static const uint32_t ballCategory = 0x1 << 1;
 - (void)didBeginContact:(SKPhysicsContact *)contact {
 
     [self runAction:_playMarimba];
-//    if ((contact.bodyA.categoryBitMask == ballCategory) || (contact.bodyB.categoryBitMask == hexCategory)) {
-//    }
-
-    
+   
 }
 
 - (void)addBallToScene:(CGPoint)location {
