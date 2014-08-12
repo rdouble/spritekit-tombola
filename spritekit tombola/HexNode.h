@@ -10,4 +10,11 @@
 
 @interface HexNode : SKShapeNode
 
+- (instancetype)initWithPosition:(CGPoint)position;
+
+- (void)startRotating;
+- (void)stopRotating;
+- (void)increaseRotationSpeed;
+- (void)decreaseRotationSpeed;
+
 @end

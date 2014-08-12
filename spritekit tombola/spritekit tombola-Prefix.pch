@@ -6,4 +6,8 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    static const uint32_t ballCategory = 0x1 << 1;
+    static const uint32_t hexCategory  = 0x1 << 0;
+
+
 #endif

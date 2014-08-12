@@ -8,16 +8,24 @@
 
 #import "HexNode.h"
 
-static const uint32_t hexCategory  = 0x1 << 0;
+@interface HexNode()
+
+@property (strong, nonatomic) SKAction *spinAction;
+
+@end
 
 @implementation HexNode
 
+- (instancetype)initWithPosition:(CGPoint)position {
 
-- (instancetype)init {
     if (self = [super init]) {
+        
+        self.position = position;
+        
+        SKAction *action = [SKAction rotateByAngle:M_PI duration:2];
 
-        
-        
+        _spinAction = [SKAction repeatActionForever:action];
+
         self.strokeColor = [SKColor greenColor];
         self.glowWidth = 0.25;
 
@@ -50,19 +58,17 @@ static const uint32_t hexCategory  = 0x1 << 0;
 
         CGPathRelease(hexPath);
         
-
-        
-        
         self.speed = 0;
 
-        
-        
+        //        _playMarimba = [SKAction playSoundFileNamed:@"marimba.wav" waitForCompletion:NO];
     }
+
     return self;
+
 }
 
 - (void)startRotating {
-    
+    [self runAction:_spinAction withKey:@"spinner"];
 }
 
 - (void)stopRotating {

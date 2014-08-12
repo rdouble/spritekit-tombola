@@ -22,6 +22,7 @@
 		7E0AE06118B922260007B5F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E0AE05F18B922260007B5F9 /* InfoPlist.strings */; };
 		7E0AE06318B922260007B5F9 /* spritekit_tombolaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E0AE06218B922260007B5F9 /* spritekit_tombolaTests.m */; };
 		7E5EF652199A878C00C59330 /* HexNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E5EF651199A878C00C59330 /* HexNode.m */; };
+		7E5EF655199A930C00C59330 /* BallNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E5EF654199A930C00C59330 /* BallNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		7E0AE06218B922260007B5F9 /* spritekit_tombolaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = spritekit_tombolaTests.m; sourceTree = "<group>"; };
 		7E5EF650199A878C00C59330 /* HexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexNode.h; sourceTree = "<group>"; };
 		7E5EF651199A878C00C59330 /* HexNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexNode.m; sourceTree = "<group>"; };
+		7E5EF653199A930C00C59330 /* BallNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallNode.h; sourceTree = "<group>"; };
+		7E5EF654199A930C00C59330 /* BallNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +135,7 @@
 				7E0AE04A18B922260007B5F9 /* TombolaScene.h */,
 				7E0AE04B18B922260007B5F9 /* AppDelegate.m */,
 				7E0AE04D18B922260007B5F9 /* AppDelegate.h */,
-				7E5EF650199A878C00C59330 /* HexNode.h */,
-				7E5EF651199A878C00C59330 /* HexNode.m */,
+				7E5EF656199A932E00C59330 /* Shape Nodes */,
 				7E0AE05018B922260007B5F9 /* Images.xcassets */,
 				7E0AE03B18B922260007B5F9 /* Supporting Files */,
 			);
@@ -169,6 +171,17 @@
 				7E0AE05F18B922260007B5F9 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7E5EF656199A932E00C59330 /* Shape Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				7E5EF650199A878C00C59330 /* HexNode.h */,
+				7E5EF651199A878C00C59330 /* HexNode.m */,
+				7E5EF653199A930C00C59330 /* BallNode.h */,
+				7E5EF654199A930C00C59330 /* BallNode.m */,
+			);
+			name = "Shape Nodes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +284,7 @@
 			files = (
 				7E0AE04918B922260007B5F9 /* TombolaScene.m in Sources */,
 				7E0AE04118B922260007B5F9 /* main.m in Sources */,
+				7E5EF655199A930C00C59330 /* BallNode.m in Sources */,
 				7E0AE04C18B922260007B5F9 /* AppDelegate.m in Sources */,
 				7E5EF652199A878C00C59330 /* HexNode.m in Sources */,
 			);
