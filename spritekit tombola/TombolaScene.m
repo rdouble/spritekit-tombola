@@ -38,7 +38,7 @@
         _hexNode = [[HexNode alloc] initWithPosition:center];
         [_hexNode startRotating];
         [self addChild:_hexNode];
-        [self addLabels];
+        //[self addLabels];
 
         
     }
