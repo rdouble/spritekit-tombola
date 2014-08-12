@@ -4,8 +4,10 @@ When the balls hit each other or the walls of the hexagon, notes are played.
 
 A video explains it better:
 
-<p><a href="http://vimeo.com/22537003">OP-1: Sequencer: Tombola</a> from <a href="http://vimeo.com/pantalones">Se&ntilde;or Pantalones</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-
-Here's a video of the SpriteKit version:
-
+<p>
+<a href="http://vimeo.com/22537003">OP-1: Sequencer: Tombola</a>
+</p>
+Here's a video of my SpriteKit version:
+<p>
 <a href ="https://vimeo.com/103277073">SpriteKit Tombola</a>
+</p>
